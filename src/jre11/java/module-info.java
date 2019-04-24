@@ -15,7 +15,6 @@ module com.microsoft.sqlserver.jdbc {
 	requires static adal4j;
 	requires static org.osgi.core;
 	requires static org.osgi.compendium;
-	//requires java.activation;
 
 	provides java.sql.Driver with com.microsoft.sqlserver.jdbc.SQLServerDriver;
 }
