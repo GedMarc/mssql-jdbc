@@ -3,10 +3,14 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.jwebmp.jpms</groupId>
+        <artifactId>jpms-pending-modules</artifactId>
+        <version>0.0.0_0-SNAPSHOT</version>
+    </parent>
 
-	<groupId>com.microsoft.sqlserver</groupId>
+	<groupId>com.jwebmp.jpms.sqlserver</groupId>
 	<artifactId>mssql-jdbc</artifactId>
-	<version>7.3.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>Microsoft JDBC Driver for SQL Server</name>
@@ -95,7 +99,6 @@
             </exclusions>
             <optional>true</optional>
 		</dependency>
-
 		<!-- dependencies provided by an OSGi-Framework -->
 		<dependency>
 			<groupId>org.osgi</groupId>
@@ -187,22 +190,9 @@
 
 	<profiles>
 		<profile>
-			<id>build42</id>
+			<id>jdk8</id>
 			<build>
-				<finalName>${project.artifactId}-${project.version}.jre8-preview</finalName>
 				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-compiler-plugin</artifactId>
-						<version>3.8.0</version>
-						<configuration>
-							<excludes>
-								<exclude>**/com/microsoft/sqlserver/jdbc/SQLServerJdbc43.java</exclude>
-							</excludes>
-							<source>1.8</source>
-							<target>1.8</target>
-						</configuration>
-					</plugin>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-javadoc-plugin</artifactId>
@@ -220,41 +210,7 @@
 							</archive>
 						</configuration>
 					</plugin>
-					<plugin>
-						<groupId>org.jacoco</groupId>
-						<artifactId>jacoco-maven-plugin</artifactId>
-						<version>0.8.3</version>
-						<executions>
-							<execution>
-								<id>pre-test</id>
-								<goals>
-									<goal>prepare-agent</goal>
-								</goals>
-							</execution>
-							<execution>
-								<id>report</id>
-								<phase>test</phase>
-								<goals>
-									<goal>report</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>3.0.0-M1</version>
-						<configuration>
-							<argLine>
-								${argLine} --illegal-access=permit
-							</argLine>
-							<properties>
-								<excludeTags>${skipTestTag}</excludeTags>
-							</properties>
-							<!-- Exclude [xJDBC42] For tests not compatible with JDBC 4.2 Specifications -->
-							<excludedGroups>${excludeGroups}, xJDBC42</excludedGroups>
-						</configuration>
-					</plugin>
+
                     <plugin>
                         <groupId>org.moditect</groupId>
                         <artifactId>moditect-maven-plugin</artifactId>
@@ -281,28 +237,13 @@
 			</build>
 		</profile>
 		<profile>
-			<id>build43</id>
+			<id>jdk12</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			<build>
-				<finalName>${project.artifactId}-${project.version}.jre11-preview</finalName>
 				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-compiler-plugin</artifactId>
-						<version>3.8.0</version>
-						<configuration>
-							<excludes>
-								<exclude>**/com/microsoft/sqlserver/jdbc/SQLServerJdbc42.java</exclude>
-							</excludes>
-                            <includes>
-                                <include>src/jre11/main/module-info.java</include>
-                            </includes>
-							<source>11</source>
-							<target>11</target>
-						</configuration>
-					</plugin>
+
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-jar-plugin</artifactId>
@@ -314,41 +255,6 @@
 									<Automatic-Module-Name>com.microsoft.sqlserver.jdbc</Automatic-Module-Name>
 								</manifestEntries>
 							</archive>
-						</configuration>
-					</plugin>
-					<plugin>
-						<groupId>org.jacoco</groupId>
-						<artifactId>jacoco-maven-plugin</artifactId>
-						<version>0.8.3</version>
-						<executions>
-							<execution>
-								<id>pre-test</id>
-								<goals>
-									<goal>prepare-agent</goal>
-								</goals>
-							</execution>
-							<execution>
-								<id>report</id>
-								<phase>test</phase>
-								<goals>
-									<goal>report</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>3.0.0-M1</version>
-						<configuration>
-							<argLine>
-								${argLine} --illegal-access=permit
-							</argLine>
-							<properties>
-								<excludeTags>${skipTestTag}</excludeTags>
-							</properties>
-							<excludedGroups>
-								${excludeGroups}</excludedGroups>
 						</configuration>
 					</plugin>
 				</plugins>
@@ -412,47 +318,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>3.0.1</version>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<!-- Create OSGI Headers -->
-			<plugin>
-				<groupId>org.apache.felix</groupId>
-				<artifactId>maven-bundle-plugin</artifactId>
-				<version>4.2.0</version>
-				<extensions>true</extensions>
-				<configuration>
-					<instructions>
-						<_exportcontents>
-							com.microsoft.sqlserver.jdbc,
-							com.microsoft.sqlserver.jdbc.osgi,
-							com.microsoft.sqlserver.jdbc.dataclassification,
-							microsoft.sql
-						</_exportcontents>
-						<Import-Package>!microsoft.sql,*</Import-Package>
-						<Bundle-Activator>com.microsoft.sqlserver.jdbc.osgi.Activator</Bundle-Activator>
-					</instructions>
-				</configuration>
-				<executions>
-					<execution>
-						<id>bundle-manifest</id>
-						<phase>process-classes</phase>
-						<goals>
-							<goal>manifest</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
@@ -469,58 +335,6 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>versions-maven-plugin</artifactId>
-				<version>2.5</version>
-				<inherited>true</inherited>
-				<configuration>
-					<outputFile>outdated-dependencies.txt</outputFile>
-					<rulesUri>file:///${session.executionRootDirectory}/maven-version-rules.xml</rulesUri>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.3</version>
-				<configuration>
-					<fileSets>
-						<fileSet>
-							<directory>jacoco-execs/</directory>
-							<includes>
-								<include>*.exec</include>
-							</includes>
-						</fileSet>
-					</fileSets>
-					<!-- File containing the merged coverage data -->
-					<destFile>${project.build.directory}/jacoco.exec</destFile>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-clean-plugin</artifactId>
-				<version>3.1.0</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-deploy-plugin</artifactId>
-				<version>2.8.2</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-install-plugin</artifactId>
-				<version>2.5.2</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>3.1.0</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-site-plugin</artifactId>
-				<version>3.7.1</version>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven</groupId>
