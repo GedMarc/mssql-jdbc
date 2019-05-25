@@ -5,6 +5,10 @@
 
 package com.microsoft.sqlserver.jdbc;
 
+import org.ietf.jgss.GSSCredential;
+
+import javax.naming.Reference;
+import javax.naming.StringRefAddr;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -13,11 +17,6 @@ import java.util.Properties;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.naming.Reference;
-import javax.naming.StringRefAddr;
-
-import org.ietf.jgss.GSSCredential;
 
 
 /**
@@ -1060,7 +1059,7 @@ public class SQLServerDataSource
             dsLogger.finer(toString() + " Begin create new connection.");
         SQLServerConnection result = null;
         if (Util.use43Wrapper()) {
-            result = new SQLServerConnection43(toString());
+            result = new SQLServerConnection(toString());
         } else {
             result = new SQLServerConnection(toString());
         }

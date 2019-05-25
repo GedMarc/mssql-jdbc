@@ -5,6 +5,8 @@
 
 package com.microsoft.sqlserver.jdbc;
 
+import org.ietf.jgss.GSSCredential;
+
 import java.sql.DriverManager;
 import java.sql.DriverPropertyInfo;
 import java.sql.SQLException;
@@ -15,8 +17,6 @@ import java.util.Properties;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.ietf.jgss.GSSCredential;
 
 
 /**
@@ -735,7 +735,7 @@ public final class SQLServerDriver implements java.sql.Driver {
         Properties connectProperties = parseAndMergeProperties(Url, suppliedProperties);
         if (connectProperties != null) {
             if (Util.use43Wrapper()) {
-                result = new SQLServerConnection43(toString());
+                result = new SQLServerConnection(toString());
             } else {
                 result = new SQLServerConnection(toString());
             }

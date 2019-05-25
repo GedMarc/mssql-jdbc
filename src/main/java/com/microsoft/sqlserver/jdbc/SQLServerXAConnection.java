@@ -5,13 +5,12 @@
 
 package com.microsoft.sqlserver.jdbc;
 
+import javax.sql.XAConnection;
+import javax.transaction.xa.XAResource;
 import java.sql.SQLException;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.sql.XAConnection;
-import javax.transaction.xa.XAResource;
 
 
 /**
@@ -49,7 +48,7 @@ public final class SQLServerXAConnection extends SQLServerPooledConnection imple
             xaLogger.finer("Creating an internal control connection for" + toString());
         physicalControlConnection = null;
         if (Util.use43Wrapper()) {
-            physicalControlConnection = new SQLServerConnection43(toString());
+            physicalControlConnection = new SQLServerConnection(toString());
         } else {
             physicalControlConnection = new SQLServerConnection(toString());
         }
