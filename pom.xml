@@ -74,6 +74,32 @@
 		<enforcer.skip>false</enforcer.skip>
 	</properties>
 
+    <build>
+        <resources>
+            <resource>
+                <directory>${basedir}</directory>
+                <includes>
+                    <include>META-INF/services/java.sql.Driver</include>
+                </includes>
+            </resource>
+        </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+                <includes>
+                    <include>**/*.csv</include>
+                </includes>
+            </testResource>
+            <testResource>
+                <directory>AE_Certificates</directory>
+                <includes>
+                    <include>**/*.txt</include>
+                    <include>**/*.jks</include>
+                </includes>
+            </testResource>
+        </testResources>
+    </build>
+
 	<dependencies>
 		<dependency>
 			<groupId>com.microsoft.azure</groupId>
@@ -102,67 +128,4 @@
 
 	</dependencies>
 
-	<profiles>
-		<profile>
-			<id>jdk8</id>
-			<build>
-				<plugins>
-                    <plugin>
-                        <groupId>org.moditect</groupId>
-                        <artifactId>moditect-maven-plugin</artifactId>
-                        <version>1.0.0.Beta2</version>
-                        <executions>
-                            <execution>
-                                <id>add-module-infos</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>add-module-info</goal>
-                                </goals>
-                                <configuration>
-                                    <overwriteExistingFiles>true</overwriteExistingFiles>
-                                    <module>
-                                        <moduleInfoFile>
-                                            src/jre11/java/module-info.java
-                                        </moduleInfoFile>
-                                    </module>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>jdk12</id>
-			<build>
-				<plugins>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
-	<build>
-		<resources>
-			<resource>
-				<directory>${basedir}</directory>
-				<includes>
-					<include>META-INF/services/java.sql.Driver</include>
-				</includes>
-			</resource>
-		</resources>
-		<testResources>
-			<testResource>
-				<directory>src/test/resources</directory>
-				<includes>
-					<include>**/*.csv</include>
-				</includes>
-			</testResource>
-			<testResource>
-				<directory>AE_Certificates</directory>
-				<includes>
-					<include>**/*.txt</include>
-					<include>**/*.jks</include>
-				</includes>
-			</testResource>
-		</testResources>
-	</build>
 </project>
