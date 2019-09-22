@@ -79,8 +79,8 @@ We're now on the Maven Central Repository. Add the following to your POM file to
 <dependency>
 	<groupId>com.microsoft.sqlserver</groupId>
 	<artifactId>mssql-jdbc</artifactId>
-	<version>7.2.2.jre11</version>
-</dependency>
+	<version>7.2.2.jre11</version><type>jar</type>
+            </dependency>
 ```
 The driver can be downloaded from the [Microsoft Download Center](https://go.microsoft.com/fwlink/?linkid=868287).
 
@@ -90,8 +90,8 @@ To get the latest preview version of the driver, add the following to your POM f
 <dependency>
 	<groupId>com.microsoft.sqlserver</groupId>
 	<artifactId>mssql-jdbc</artifactId>
-	<version>7.3.0.jre11-preview</version>
-</dependency>
+	<version>7.3.0.jre11-preview</version><type>jar</type>
+            </dependency>
 ```
 
 ### Using driver as Java Module
@@ -126,20 +126,20 @@ Projects that require either of the two features need to explicitly declare the 
 	<groupId>com.microsoft.sqlserver</groupId>
 	<artifactId>mssql-jdbc</artifactId>
 	<version>7.3.0.jre11-preview</version>
-	<scope>compile</scope>
-</dependency>
+	<scope>compile</scope><type>jar</type>
+            </dependency>
 
 <dependency>
 	<groupId>com.microsoft.azure</groupId>
 	<artifactId>adal4j</artifactId>
-	<version>1.6.3</version>
-</dependency>
+	<version>1.6.3</version><type>jar</type>
+            </dependency>
 
 <dependency>
 	<groupId>com.microsoft.rest</groupId>
 	<artifactId>client-runtime</artifactId>
-	<version>1.6.5</version>
-</dependency>
+	<version>1.6.5</version><type>jar</type>
+            </dependency>
 ```
 
 ***For Example:*** If you are using *Azure Key Vault feature* then you need to redeclare *azure-keyvault*, *azure-keyvault-webkey* dependency and *adal4j*, *client-runtime* dependency in your project's pom file. Please see the following snippet: 
@@ -149,32 +149,32 @@ Projects that require either of the two features need to explicitly declare the 
 	<groupId>com.microsoft.sqlserver</groupId>
 	<artifactId>mssql-jdbc</artifactId>
 	<version>7.3.0.jre11-preview</version>
-	<scope>compile</scope>
-</dependency>
+	<scope>compile</scope><type>jar</type>
+            </dependency>
 
 <dependency>
 	<groupId>com.microsoft.azure</groupId>
 	<artifactId>adal4j</artifactId>
-	<version>1.6.3</version>
-</dependency>
+	<version>1.6.3</version><type>jar</type>
+            </dependency>
 
 <dependency>
 	<groupId>com.microsoft.rest</groupId>
 	<artifactId>client-runtime</artifactId>
-	<version>1.6.5</version>
-</dependency>
+	<version>1.6.5</version><type>jar</type>
+            </dependency>
 
 <dependency>
 	<groupId>com.microsoft.azure</groupId>
 	<artifactId>azure-keyvault</artifactId>
-	<version>1.2.0</version>
-</dependency>
+	<version>1.2.0</version><type>jar</type>
+            </dependency>
 
 <dependency>
 	<groupId>com.microsoft.azure</groupId>
 	<artifactId>azure-keyvault-webkey</artifactId>
-	<version>1.2.0</version>
-</dependency>
+	<version>1.2.0</version><type>jar</type>
+            </dependency>
 ```
 
 ***Please note*** as of the v6.2.2, the way to construct a `SQLServerColumnEncryptionAzureKeyVaultProvider` object has changed. Please refer to this [Wiki](https://github.com/Microsoft/mssql-jdbc/wiki/New-Constructor-Definition-for-SQLServerColumnEncryptionAzureKeyVaultProvider-after-6.2.2-Release) page for more information.

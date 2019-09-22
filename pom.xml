@@ -9,7 +9,7 @@
         <version>0.0.0_0-SNAPSHOT</version>
     </parent>
 
-	<groupId>com.jwebmp.jpms.sqlserver</groupId>
+	<groupId>com.jwebmp.jpms.thirdparty</groupId>
 	<artifactId>mssql-jdbc</artifactId>
 	<packaging>jar</packaging>
 
@@ -105,14 +105,14 @@
 			<groupId>com.microsoft.azure</groupId>
 			<artifactId>azure-keyvault</artifactId>
 			<version>${azure.keyvault.version}</version>
-			<optional>true</optional>
-		</dependency>
+			<optional>true</optional><type>jar</type>
+            </dependency>
 		<dependency>
 			<groupId>com.microsoft.azure</groupId>
 			<artifactId>adal4j</artifactId>
 			<version>${azure.adal4j.version}</version>
-			<optional>true</optional>
-		</dependency>
+			<optional>true</optional><type>jar</type>
+            </dependency>
 		<dependency>
 			<groupId>com.microsoft.rest</groupId>
 			<artifactId>client-runtime</artifactId>
@@ -123,8 +123,8 @@
                     <groupId>com.squareup.okhttp3</groupId>
                 </exclusion>
             </exclusions>
-            <optional>true</optional>
-		</dependency>
+            <optional>true</optional><type>jar</type>
+            </dependency>
 
 	</dependencies>
 
