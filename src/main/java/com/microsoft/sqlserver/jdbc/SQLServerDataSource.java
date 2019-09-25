@@ -5,10 +5,6 @@
 
 package com.microsoft.sqlserver.jdbc;
 
-import org.ietf.jgss.GSSCredential;
-
-import javax.naming.Reference;
-import javax.naming.StringRefAddr;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -17,6 +13,11 @@ import java.util.Properties;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.naming.Reference;
+import javax.naming.StringRefAddr;
+
+import org.ietf.jgss.GSSCredential;
 
 
 /**
@@ -477,7 +478,19 @@ public class SQLServerDataSource
         return getBooleanProperty(connectionProps, SQLServerDriverBooleanProperty.SEND_TIME_AS_DATETIME.toString(),
                 SQLServerDriverBooleanProperty.SEND_TIME_AS_DATETIME.getDefaultValue());
     }
+    
+    @Override
+    public void setUseFmtOnly(boolean useFmtOnly) {
+        setBooleanProperty(connectionProps, SQLServerDriverBooleanProperty.USE_FMT_ONLY.toString(),
+                useFmtOnly);
+    }
 
+    @Override
+    public boolean getUseFmtOnly() {
+        return getBooleanProperty(connectionProps, SQLServerDriverBooleanProperty.USE_FMT_ONLY.toString(),
+                SQLServerDriverBooleanProperty.USE_FMT_ONLY.getDefaultValue());
+    }
+    
     /**
      * Sets whether string parameters are sent to the server in UNICODE format.
      * 
@@ -876,6 +889,35 @@ public class SQLServerDataSource
                 SQLServerDriverStringProperty.MSI_CLIENT_ID.getDefaultValue());
     }
 
+    @Override
+    public void setKeyVaultProviderClientId(String keyVaultProviderClientId) {
+        setStringProperty(connectionProps, SQLServerDriverStringProperty.KEY_VAULT_PROVIDER_CLIENT_ID.toString(),
+                keyVaultProviderClientId);
+    }
+
+    @Override
+    public String getKeyVaultProviderClientId() {
+        return getStringProperty(connectionProps, SQLServerDriverStringProperty.KEY_VAULT_PROVIDER_CLIENT_ID.toString(),
+                SQLServerDriverStringProperty.KEY_VAULT_PROVIDER_CLIENT_ID.getDefaultValue());
+    }
+
+    @Override
+    public void setKeyVaultProviderClientKey(String keyVaultProviderClientKey) {
+        setStringProperty(connectionProps, SQLServerDriverStringProperty.KEY_VAULT_PROVIDER_CLIENT_KEY.toString(),
+                keyVaultProviderClientKey);
+    }
+
+    @Override
+    public void setDomain(String domain) {
+        setStringProperty(connectionProps, SQLServerDriverStringProperty.DOMAIN.toString(), domain);
+    }
+
+    @Override
+    public String getDomain() {
+        return getStringProperty(connectionProps, SQLServerDriverStringProperty.DOMAIN.toString(),
+                SQLServerDriverStringProperty.DOMAIN.getDefaultValue());
+    }
+
     /**
      * Sets a property string value.
      * 
@@ -973,7 +1015,7 @@ public class SQLServerDataSource
         if (loggerExternal.isLoggable(java.util.logging.Level.FINER))
             loggerExternal.entering(getClassNameLogging(), "get" + propKey);
         String propValue = props.getProperty(propKey);
-        Boolean value;
+        boolean value;
         if (null == propValue) {
             value = defaultValue;
         } else {
@@ -1059,7 +1101,7 @@ public class SQLServerDataSource
             dsLogger.finer(toString() + " Begin create new connection.");
         SQLServerConnection result = null;
         if (Util.use43Wrapper()) {
-            result = new SQLServerConnection(toString());
+            result = new SQLServerConnection43(toString());
         } else {
             result = new SQLServerConnection(toString());
         }

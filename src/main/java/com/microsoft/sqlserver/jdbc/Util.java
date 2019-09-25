@@ -25,7 +25,6 @@ import java.util.logging.Logger;
  * Various driver utilities.
  *
  */
-
 final class Util {
     final static String SYSTEM_SPEC_VERSION = System.getProperty("java.specification.version");
     final static char[] hexChars = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
@@ -41,7 +40,7 @@ final class Util {
         return SYSTEM_JRE.startsWith("IBM");
     }
 
-    static final Boolean isCharType(int jdbcType) {
+    static final boolean isCharType(int jdbcType) {
         switch (jdbcType) {
             case java.sql.Types.CHAR:
             case java.sql.Types.NCHAR:

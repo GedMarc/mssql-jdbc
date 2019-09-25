@@ -1699,6 +1699,14 @@ final class DTV {
                 case DATETIMEOFFSET:
                     op.execute(this, (microsoft.sql.DateTimeOffset) value);
                     break;
+                    
+                case GEOMETRY:
+                    op.execute(this, ((Geometry) value).serialize());
+                    break;
+                    
+                case GEOGRAPHY:
+                    op.execute(this, ((Geography) value).serialize());
+                    break;
 
                 case FLOAT:
                     if (null != cryptoMeta) {
@@ -3715,9 +3723,7 @@ final class ServerDTVImpl extends DTVImpl {
                             JDBCType.VARBINARY, streamGetterArgs);
                 }
 
-                if (aeLogger.isLoggable(java.util.logging.Level.FINE)) {
-                    aeLogger.fine("Encrypted data is retrieved.");
-                }
+                aeLogger.fine("Encrypted data is retrieved.");
 
                 // AE does not support streaming types
                 if ((convertedValue instanceof SimpleInputStream) || (convertedValue instanceof PLPInputStream)) {

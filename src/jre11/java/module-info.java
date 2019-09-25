@@ -13,6 +13,7 @@ module com.microsoft.sqlserver.jdbc {
 	requires static client.runtime;
 	requires static okhttp3;
 	requires static retrofit2;
+	requires static org.antlr.antlr4.runtime;
 
 	provides java.sql.Driver with com.microsoft.sqlserver.jdbc.SQLServerDriver;
 }
