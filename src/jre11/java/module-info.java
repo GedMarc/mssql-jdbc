@@ -11,7 +11,7 @@ module com.microsoft.sqlserver.jdbc {
 	requires static azure.keyvault.webkey;
 	requires static adal4j;
 	requires static client.runtime;
-	requires static okhttp3;
+	//requires static okhttp3;
 	requires static retrofit2;
 	requires static org.antlr.antlr4.runtime;
 
